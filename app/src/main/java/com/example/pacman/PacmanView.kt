@@ -29,7 +29,6 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         color = context.getColor(R.color.black)
         strokeWidth = STROKE_WIDTH
         style = Paint.Style.STROKE
-
     }
 
     private val pacmanStroke by lazy {
@@ -61,6 +60,12 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             }
     }
 
+    private var startStrokeAngle = 45f
+    private var startStrokeAngle2 = -45f
+
+    private var endStrokeAngle = 270f
+    private var endStrokeAngle2 = -270f
+
     private var pacmanMouthStartAngle = 0f
 
     private var pacmanMouthSweepAngle = 45f
@@ -73,6 +78,7 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             centerY - radius * 0.5f
         )
     }
+
     private val oval by lazy {
         RectF(
             centerX - radius,
@@ -80,9 +86,6 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             centerX + radius,
             centerY + radius
         )
-    }
-    private val stroke by lazy {
-
     }
 
     private val progressAnimator: ValueAnimator
@@ -94,6 +97,8 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             repeatMode = ValueAnimator.REVERSE
             duration = 2000L
             addUpdateListener {
+                startStrokeAngle = (it.animatedValue as Float)
+                startStrokeAngle2 = (it.animatedValue as Float) * -1
                 pacmanMouthStartAngle = it.animatedValue as Float
                 invalidate()
             }
@@ -113,6 +118,8 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        canvas.drawArc(pacmanStroke, startStrokeAngle, endStrokeAngle, true, strokeBackground)
+        canvas.drawArc(pacmanStroke, startStrokeAngle2, endStrokeAngle2, true, strokeBackground)
         canvas.drawArc(oval, START_ANGLE, END_ANGLE, true, backgroundPacmanPaint)
         canvas.drawArc(
             oval,
@@ -127,21 +134,6 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             pacmanMouthSweepAngle * -1f,
             true,
             backgroundPacmanPaint
-        )
-        canvas.drawArc(pacmanStroke, START_ANGLE, END_ANGLE, false, strokeBackground)
-        canvas.drawArc(
-            pacmanStroke,
-            pacmanMouthStartAngle,
-            pacmanMouthSweepAngle,
-            false,
-            strokeBackground
-        )
-        canvas.drawArc(
-            pacmanStroke,
-            pacmanMouthStartAngle * -1f,
-            pacmanMouthSweepAngle * -1f,
-            false,
-            strokeBackground
         )
         canvas.drawOval(eye, pacmanEyeColor)
     }
