@@ -61,10 +61,8 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     }
 
     private var startStrokeAngle = 45f
-    private var startStrokeAngle2 = -45f
 
     private var endStrokeAngle = 270f
-    private var endStrokeAngle2 = -270f
 
     private var pacmanMouthStartAngle = 0f
 
@@ -98,7 +96,6 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             duration = 2000L
             addUpdateListener {
                 startStrokeAngle = (it.animatedValue as Float)
-                startStrokeAngle2 = (it.animatedValue as Float) * -1
                 pacmanMouthStartAngle = it.animatedValue as Float
                 invalidate()
             }
@@ -119,7 +116,7 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawArc(pacmanStroke, startStrokeAngle, endStrokeAngle, true, strokeBackground)
-        canvas.drawArc(pacmanStroke, startStrokeAngle2, endStrokeAngle2, true, strokeBackground)
+        canvas.drawArc(pacmanStroke, startStrokeAngle * -1, endStrokeAngle * -1, true, strokeBackground)
         canvas.drawArc(oval, START_ANGLE, END_ANGLE, true, backgroundPacmanPaint)
         canvas.drawArc(
             oval,
