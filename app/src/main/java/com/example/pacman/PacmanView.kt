@@ -14,6 +14,7 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         private const val MARGIN_COEFF = 0.8f
         private const val START_ANGLE = 45f
         private const val END_ANGLE = 270f
+        private const val STROKE_WIDTH = 40f
     }
 
     private var radius = 0f
@@ -23,6 +24,22 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var centerY = 0f
 
     private val backgroundPacmanPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    private val strokeBackground = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = context.getColor(R.color.black)
+        strokeWidth = STROKE_WIDTH
+        style = Paint.Style.STROKE
+
+    }
+
+    private val pacmanStroke by lazy {
+        RectF(
+            centerX - radius,
+            centerY - radius,
+            centerX + radius,
+            centerY + radius
+        )
+    }
 
     private val pacmanEyeColor = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -63,6 +80,9 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             centerX + radius,
             centerY + radius
         )
+    }
+    private val stroke by lazy {
+
     }
 
     private val progressAnimator: ValueAnimator
@@ -107,6 +127,21 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             pacmanMouthSweepAngle * -1f,
             true,
             backgroundPacmanPaint
+        )
+        canvas.drawArc(pacmanStroke, START_ANGLE, END_ANGLE, false, strokeBackground)
+        canvas.drawArc(
+            pacmanStroke,
+            pacmanMouthStartAngle,
+            pacmanMouthSweepAngle,
+            false,
+            strokeBackground
+        )
+        canvas.drawArc(
+            pacmanStroke,
+            pacmanMouthStartAngle * -1f,
+            pacmanMouthSweepAngle * -1f,
+            false,
+            strokeBackground
         )
         canvas.drawOval(eye, pacmanEyeColor)
     }

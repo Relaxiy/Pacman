@@ -13,7 +13,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:pacmanColor="@color/purple_500"
-        app:pacmanEyeColor="@color/purple_700"/>
+        app:pacmanColor="@color/teal_700"
+        app:pacmanEyeColor="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
