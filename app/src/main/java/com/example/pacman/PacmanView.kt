@@ -86,7 +86,7 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         )
     }
 
-    private val progressAnimator: ValueAnimator
+    private val pacmanAnimator: ValueAnimator
         get() = ValueAnimator.ofFloat(
             pacmanMouthSweepAngle,
             pacmanMouthStartAngle
@@ -136,6 +136,6 @@ class PacmanView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     }
 
     fun startAnimation() {
-        progressAnimator.start()
+        pacmanAnimator.start()
     }
 }

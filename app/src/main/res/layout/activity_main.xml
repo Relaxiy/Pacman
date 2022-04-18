@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.example.pacman.PacmanView
-        android:id="@+id/progress"
+        android:id="@+id/pacman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
